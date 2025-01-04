@@ -1,27 +1,16 @@
 from os import getenv
-from fastapi import FastAPI, HTTPException, Request
+from fastapi import FastAPI, Request
 import uvicorn
 from pymongo import MongoClient
 from dotenv import load_dotenv
 import random
 from fastapi.responses import HTMLResponse
-from fastapi.middleware.trustedhost import TrustedHostMiddleware
 from slowapi import Limiter, _rate_limit_exceeded_handler
 from slowapi.util import get_remote_address
 from slowapi.errors import RateLimitExceeded
-from pydantic import BaseModel
-from typing import Optional
 
+from models import MessageResponse, JokeResponse, CountResponse
 
-class JokeResponse(BaseModel):
-    joke: str
-    author: str
-    category: str
-    language: str
-
-
-class MessageResponse(BaseModel):
-    message: str
 
 
 load_dotenv()
@@ -76,17 +65,15 @@ def read_random_english(request: Request):
     return format_data(data)
 
 
-@app.get("/count", response_model=MessageResponse)
-@limiter.limit("1/minute")
+@app.get("/count", response_model=CountResponse)
+# @limiter.limit("1/minute") 
 def read_count(request: Request):
     total = db.jokes_db.jokes.count_documents({})
     hindi = db.jokes_db.jokes.count_documents({"language": "Hinglish"})
     english = db.jokes_db.jokes.count_documents({"language": "English"})
-    return {
-        "total": total,
-        "hindi": hindi,
-        "english": english
-    }
+
+    return CountResponse(total=total, hindi=hindi, english=english)
+
 
 if __name__ == "__main__":
     uvicorn.run("main:app", host="0.0.0.0", port=6901, reload=True)
