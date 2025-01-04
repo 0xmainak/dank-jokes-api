@@ -52,6 +52,14 @@ def get_docs(request: Request):
     return HTMLResponse(open("docs.html", "r").read())
 
 
+@app.get("/random", response_model=JokeResponse)
+@limiter.limit("30/minute")
+def read_random(request: Request):
+    data = db.jokes_db.jokes.find().to_list()
+    data = random.choice(data)
+    return format_data(data)
+
+
 @app.get("/random/hindi", response_model=JokeResponse)
 @limiter.limit("30/minute")
 def read_random_hindi(request: Request):
