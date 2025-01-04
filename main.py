@@ -5,8 +5,6 @@ from pymongo import MongoClient
 from dotenv import load_dotenv
 import random
 
-#test
-
 load_dotenv()
 db = MongoClient(getenv("MONGO"))
 
