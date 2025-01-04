@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jokes API Documentation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css">
+</head>
+
+<body class="bg-gradient-to-br from-pink-100 to-purple-200">
+    <div class="container mx-auto px-4 py-8">
+        <h1 class="text-4xl font-bold text-center mb-8 text-purple-600 drop-shadow-lg">Jokes API Documentation</h1>
+
+        <div class="max-w-3xl mx-auto space-y-8">
+            <!-- Introduction -->
+            <div class="bg-white/80 backdrop-blur-sm rounded-lg shadow-lg border border-purple-200 p-6 hover:shadow-xl transition duration-300">
+                <h2 class="text-2xl font-semibold mb-4 text-indigo-600">Introduction</h2>
+                <p class="text-gray-700">
+                    Welcome to the Jokes API documentation. This API provides access to a collection of jokes in
+                    different languages and categories.
+                </p>
+            </div>
+
+            <!-- Base URL -->
+            <div class="bg-white/80 backdrop-blur-sm rounded-lg shadow-lg border border-blue-200 p-6 hover:shadow-xl transition duration-300">
+                <h2 class="text-2xl font-semibold mb-4 text-blue-600">Base URL</h2>
+                <code class="bg-blue-50 px-2 py-1 rounded text-blue-700">http://104.197.122.48:6901/</code>
+            </div>
+
+            <!-- Endpoints -->
+            <div class="bg-white/80 backdrop-blur-sm rounded-lg shadow-lg border border-pink-200 p-6 hover:shadow-xl transition duration-300">
+                <h2 class="text-2xl font-semibold mb-4 text-pink-600">Endpoints</h2>
+
+                <!-- Root Endpoint -->
+                <div class="mb-6">
+                    <h3 class="text-xl font-semibold mb-2 text-rose-500">1. Root Endpoint</h3>
+                    <p class="text-gray-700 mb-2"><span class="font-semibold text-emerald-600">GET</span> <code
+                            class="bg-emerald-50 px-2 py-1 rounded text-emerald-700">/</code></p>
+                    <p class="text-gray-700 mb-2">Returns a welcome message.</p>
+                    <div class="mt-2">
+                        <h4 class="font-semibold mb-1 text-orange-600">Example Response:</h4>
+                        <pre class="language-json rounded-lg"><code>{
+    "message": "Hello, World!"
+}</code></pre>
+                    </div>
+                </div>
+
+                <!-- Random Hindi Joke -->
+                <div>
+                    <h3 class="text-xl font-semibold mb-2 text-rose-500">2. Random Hindi Joke</h3>
+                    <p class="text-gray-700 mb-2"><span class="font-semibold text-emerald-600">GET</span> <code
+                            class="bg-emerald-50 px-2 py-1 rounded text-emerald-700">/random/hindi</code></p>
+                    <p class="text-gray-700 mb-2">Returns a random joke in Hindi language.</p>
+                    <div class="mt-2">
+                        <h4 class="font-semibold mb-1 text-orange-600">Example Response:</h4>
+                        <pre class="language-json rounded-lg"><code>{
+    "joke": "joke text here",
+    "author": "author name",
+    "category": "category name",
+    "language": "Hindi"
+}</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-core.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/plugins/autoloader/prism-autoloader.min.js"></script>
+</body>
+
+</html>

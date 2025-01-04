@@ -4,11 +4,15 @@ import uvicorn
 from pymongo import MongoClient
 from dotenv import load_dotenv
 import random
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import HTMLResponse
 
 load_dotenv()
 db = MongoClient(getenv("MONGO"))
 
 app = FastAPI()
+app.mount("/static", StaticFiles(directory="."), name="static")
+
 def format_data(data):
     return {
         "joke": data["joke"],
@@ -16,9 +20,14 @@ def format_data(data):
         "category": data["category"],
         "language": data["language"]
     }
+
 @app.get("/")
 def read_root():
     return {"message": "Hello, World!"}
+
+@app.get("/docs")
+def get_docs():
+    return HTMLResponse(open("docs.html", "r").read())
 
 @app.get("/random/hindi")
 def read_random_hindi():
@@ -28,4 +37,3 @@ def read_random_hindi():
 
 if __name__ == "__main__":
     uvicorn.run("main:app", host = "0.0.0.0", port = 6901, reload=True)
-
