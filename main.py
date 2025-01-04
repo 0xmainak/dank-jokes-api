@@ -4,14 +4,12 @@ import uvicorn
 from pymongo import MongoClient
 from dotenv import load_dotenv
 import random
-from fastapi.staticfiles import StaticFiles
 from fastapi.responses import HTMLResponse
 
 load_dotenv()
 db = MongoClient(getenv("MONGO"))
 
-app = FastAPI()
-app.mount("/static", StaticFiles(directory="."), name="static")
+app = FastAPI(docs_url=None, redoc_url=None)
 
 def format_data(data):
     return {
