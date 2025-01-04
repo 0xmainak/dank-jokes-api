@@ -12,14 +12,17 @@ from slowapi.errors import RateLimitExceeded
 from pydantic import BaseModel
 from typing import Optional
 
+
 class JokeResponse(BaseModel):
     joke: str
-    author: str 
+    author: str
     category: str
     language: str
 
+
 class MessageResponse(BaseModel):
     message: str
+
 
 load_dotenv()
 db = MongoClient(getenv("MONGO"))
@@ -29,30 +32,41 @@ app = FastAPI(docs_url=None, redoc_url=None)
 app.state.limiter = limiter
 app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 
+
 def format_data(data) -> JokeResponse:
     return JokeResponse(
         joke=data["joke"],
         author=data["author"],
         category=data["category"],
-        language=data["language"]
+        language=data["language"],
     )
 
+
 @app.get("/", response_model=MessageResponse)
-# @limiter.limit("10/minute") 
 def read_root(request: Request):
     return MessageResponse(message="Hello, World!")
 
+
 @app.get("/docs")
-# @limiter.limit("10/minute")
 def get_docs(request: Request):
     return HTMLResponse(open("docs.html", "r").read())
+
 
 @app.get("/random/hindi", response_model=JokeResponse)
 @limiter.limit("30/minute")
 def read_random_hindi(request: Request):
-    data = db.jokes_db.jokes.find({"language": "Hindi"}).to_list()
+    data = db.jokes_db.jokes.find({"language": "Hinglish"}).to_list()
     data = random.choice(data)
     return format_data(data)
 
+
+@app.get("/random/english", response_model=JokeResponse)
+@limiter.limit("30/minute")
+def read_random_english(request: Request):
+    data = db.jokes_db.jokes.find({"language": "English"}).to_list()
+    data = random.choice(data)
+    return format_data(data)
+
+
 if __name__ == "__main__":
-    uvicorn.run("main:app", host = "0.0.0.0", port = 6901, reload=True)
+    uvicorn.run("main:app", host="0.0.0.0", port=6901, reload=True)
