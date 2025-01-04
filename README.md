@@ -26,7 +26,9 @@ A simple and fun API that serves jokes in different languages, built with FastAP
 |----------|--------|-------------|
 | `/` | GET | Welcome message |
 | `/docs` | GET | API documentation |
+| `/random` | GET | Get a random joke |
 | `/random/hindi` | GET | Get a random Hindi joke |
+| `/random/english` | GET | Get a random English joke |
 
 Visit the [API Documentation](http://104.197.122.48:6901/docs) for detailed information about using the endpoints.
 
