@@ -4,7 +4,6 @@ import uvicorn
 from pymongo import MongoClient
 from dotenv import load_dotenv
 import random
-#just commiting something for testing webhook :)
 
 load_dotenv()
 db = MongoClient(getenv("MONGO"))
@@ -28,5 +27,5 @@ def read_random_hindi():
     return format_data(data)
 
 if __name__ == "__main__":
-    uvicorn.run("main:app", reload=True)
+    uvicorn.run("main:app", host = "0.0.0.0", port = 6901, reload=True)
 
