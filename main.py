@@ -82,8 +82,11 @@ def read_count(request: Request):
     total = db.jokes_db.jokes.count_documents({})
     hindi = db.jokes_db.jokes.count_documents({"language": "Hinglish"})
     english = db.jokes_db.jokes.count_documents({"language": "English"})
-    return MessageResponse(message=f"Total jokes: {total}\nHindi jokes: {hindi}\nEnglish jokes: {english}")
-
+    return {
+        "total": total,
+        "hindi": hindi,
+        "english": english
+    }
 
 if __name__ == "__main__":
     uvicorn.run("main:app", host="0.0.0.0", port=6901, reload=True)
